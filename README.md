@@ -12,41 +12,41 @@ All tutorials are from the Complete React Tutorial on the Net Ninja YouTube chan
 
 ### <ins>What does the starter React Project contain?</ins>
 There are a series of folders and files within the starter react project.
-<br>
+
 node_modules:
-<br>
+
 The folder node_modules contains all of the project dependencies, including the react library. Any packages or libraries installed in the future will always be stored in this location.
-<br>
+
 public:
-<br>
+
 The public folder contains all of the files that are public to the browser.
-<br>
+
 The index.html file within the public folder is the entry-point of the react app in the browser. 
-<br>
+
 All react code in injected into this 1 html file which is served to the browser. The exact location of this injection is in the div with id="root".
-<br>
+
 src:
-<br>
+
 The src folder contains 99% of the code you will write in react.
-<br>
+
  App.js is a react component which contains child components. 
- <br>
+
  There are also other CSS and JS files within this folder.
-<br>
+
 The index.js file is what kickstarts the application. It is responsible for taking all of the React components created and injected into App.js, and mounts them to the DOM.
 
 ### <ins>What can we remove from the starter React App?</ins>
 The starter react project comes with some default files that render the starter page but these can be deleted immediately to help cleanup the project for the development of our own app.
-<br>
+
 Files to delete:
-<br>
+
 src:
 - App.test.js, setupTests.js, logo.svg, reportWebVitals.js, index.css
 public:
 - All files except index.html
-<br>
+
 Code to edit/remove:
-<br>
+
 src: 
 - logo.svg import in App.js,  
 - reportWebVitals.js import in index.js
@@ -54,10 +54,10 @@ src:
 - clear the code inside of div in App.js (lines 6 to 19)
 - convert App() function to arrow function in App.js
 - keep App.css file but clear the clode.
-<br>
+
 public: 
 - remove links to deleted files in index.html (line 5, 12 & 17) 
 - remove comments in index.html
 - change Title to something related to your project
-<br>
+
 Source: [How to create a React App & File Cleanup](https://www.youtube.com/watch?v=PAqbIbdvTuU)
