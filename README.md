@@ -78,4 +78,24 @@ public:
 - remove comments in index.html
 - change Title to something related to your project
 
-Source: [How to create a React App & File Cleanup](https://www.youtube.com/watch?v=PAqbIbdvTuU)
+<ins>Useful Links:</ins>
+<br/>
+Link to: [How to create a React App & File Cleanup](https://www.youtube.com/watch?v=PAqbIbdvTuU)
+<br/>
+Link to: [Full React Tutorial #2 - Creating a React Application](https://www.youtube.com/watch?v=kVeOpcw4GWY&list=PL4cUxeGkcC9gZD-Tvwfod2gaISzfRiP9d&index=2)
+
+## Lesson 2 - React Components
+
+Components contains all of their own template and logic for that piece of content.
+
+![React Components](/images/react-components.png)
+
+For example, a NavBar component will contain a template which makes up the HTML and also any JS logic, like a function that runs if a logout button is clicked! React components allows us to implement these features very easily.
+
+All components contain functions that are capitalised. For example, App.js contains the function App(). They must return JSX. Which is an extended version of JS Syntax that contains HTML-like syntax. In the background, a transpiler called babel converts all of the JSX template to HTML, and it renders it to the DOM.
+
+in JSX, we use className instead of class (like in HTML) because class is a reserved keyword in JS! Babel converts this into class when the code is transpiled from JSX to HTML in the DOM.
+
+In React versions less than 17, you need to import React at the top of the component file. In React v17 and above, you do not need it.
+
+At the end, we always export our component function, this is so we can import and use them in other files. For example, the App function component in App.js is exported, and in index.js it is imported and used.
