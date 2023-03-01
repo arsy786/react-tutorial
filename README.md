@@ -39,12 +39,14 @@ The index.js file is what kickstarts the application. It is responsible for taki
 The starter react project comes with some default files that render the starter page but these can be deleted immediately to help cleanup the project for the development of our own app.
 
 Files to delete:
+
 src:
 - App.test.js, setupTests.js, logo.svg, reportWebVitals.js, index.css
 public:
 - All files except index.html
 
 Code to edit/remove:
+
 src: 
 - logo.svg import in App.js,  
 - reportWebVitals.js import in index.js
