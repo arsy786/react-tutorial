@@ -4,13 +4,13 @@ All tutorials are from the Complete React Tutorial on the Net Ninja YouTube chan
 
 ## Lesson 1 - Creating a React App
 
-### Steps for creating a React App:
+### <u>Steps for creating a React App:</u>
 1. Need node installed. Check version with `node -v`. If no version, install using brew with `brew install node`.
 2. Run command `npx create-react-app app-name` in terminal to bootstrap a starter react project in current directory.
 3. Change directory to the newly created react project and run command `code .` to open current directory (starter react project) in VSCode.
 4. To run react app in dev mode run the command `npm start` and the application will run locally at at localhost:3000.
 
-### What does the Starter React Project contain?
+### <u>What does the starter React Project contain?</u>
 There are a series of folders and files within the starter react project.
 
 node_modules:
@@ -35,7 +35,7 @@ The src folder contains 99% of the code you will write in react.
 <br>
 The index.js file is what kickstarts the application. It is responsible for taking all of the React components created and injected into App.js, and mounts them to the DOM.
 
-### Starter React App file cleanup
+### <u>What can we remove from the starter React App?</u>
 The starter react project comes with some default files that render the starter page but these can be deleted immediately to help cleanup the project for the development of our own app.
 
 Files to delete:
