@@ -2,15 +2,28 @@
 
 All tutorials are from the Complete React Tutorial on the Net Ninja YouTube channel, [link is here](https://www.youtube.com/playlist?list=PL4cUxeGkcC9gZD-Tvwfod2gaISzfRiP9d).
 
-## Lesson 1 - Creating a React App
+## Table of Contents  
+- [React Tutorial](#react-tutorial)
+  - [Table of Contents](#table-of-contents)
+  - [1. Creating a React App](#1-creating-a-react-app)
+    - [1.1. Steps for creating a React App:](#11-steps-for-creating-a-react-app)
+    - [1.2. What does the starter React Project contain?](#12-what-does-the-starter-react-project-contain)
+    - [1.3. What can we remove from the starter React App?](#13-what-can-we-remove-from-the-starter-react-app)
+  - [2. React Components](#2-react-components)
+  - [3. Dynamic Values](#3-dynamic-values)
+  - [4. Multiple Components](#4-multiple-components)
+  - [5. Adding Styles](#5-adding-styles)
+  - [6. Click Events](#6-click-events)
 
-### <ins>Steps for creating a React App:</ins>
+## 1. Creating a React App
+
+### <ins>1.1. Steps for creating a React App:</ins>
 1. Need node installed. Check version with `node -v`. If no version, install using brew with `brew install node`.
-2. Run command `npx create-react-app app-name` in terminal to bootstrap a starter react project in current directory.
+2. Run command `npx create-react-app app-name` in terminal to bootstrap a starter react project called 'app-name' in current directory.
 3. Change directory to the newly created react project and run command `code .` to open current directory (starter react project) in VSCode.
 4. To run react app in dev mode run the command `npm start` and the application will run locally at at localhost:3000.
 
-### <ins>What does the starter React Project contain?</ins>
+### <ins>1.2. What does the starter React Project contain?</ins>
 There are a series of folders and files within the starter react project.
 
 ![React App Folder Structure](/images/react-app-folder-structure.png)
@@ -32,9 +45,9 @@ public:
 src:
 
 - The src folder contains 99% of the code you will write in react.
-- App.js is a react component which contains child components. 
+- App.js is a react component which contains some JSX elements, and in the future will hold other child components. 
 - There are also other CSS and JS files within this folder.
-- The index.js file is what kickstarts the application. It is responsible for taking all of the React components created and injected into App.js, and mounts them to the DOM within the id="root" div element in the index.html file that is in the public folder.
+- The index.js file is what kickstarts the application. It is responsible for taking all of the JSX and React components created and injected into App.js return() method, and mounts them to the DOM via the id="root" div element in the index.html file (public folder).
 
 .gitignore:
 
@@ -52,13 +65,17 @@ README.md:
 
 - this file is used for documentation of the project.
 
-### <ins>What can we remove from the starter React App?</ins>
+### <ins>1.3. What can we remove from the starter React App?</ins>
 The starter react project comes with some default files that render the starter page but these can be deleted immediately to help cleanup the project for the development of our own app.
 
 <ins>Files to delete</ins>
 
 src:
-- App.test.js, setupTests.js, logo.svg, reportWebVitals.js, index.css
+- App.test.js
+- setupTests.js
+- logo.svg
+- reportWebVitals.js
+- index.css OR App.css (depends on project size and purpose)
 
 public:
 - All files except index.html
@@ -67,8 +84,8 @@ public:
 
 src: 
 - logo.svg import in App.js 
-- reportWebVitals.js import in index.js
-- index.css import in index.js
+- reportWebVitals.js import and corresponding code in index.js
+- index.css import in index.js (OR App.css import in App.js)
 - clear the code inside of div in App.js (lines 6 to 19)
 - convert App() function to arrow function in App.js
 - keep App.css file but clear the clode.
@@ -84,9 +101,9 @@ Link to: [How to create a React App & File Cleanup](https://www.youtube.com/watc
 <br/>
 Link to: [Full React Tutorial #2 - Creating a React Application](https://www.youtube.com/watch?v=kVeOpcw4GWY&list=PL4cUxeGkcC9gZD-Tvwfod2gaISzfRiP9d&index=2)
 
-## Lesson 2 - React Components
+## 2. React Components
 
-Components contains all of their own template and logic for that piece of content.
+Components contain their own template and logic for that piece of content. A React component is a reusable piece of code used to define the appearance, behavior, and state of a portion of a web app’s interface. Components are defined as functions (or as classes). Using the component as a factory, an infinite number of component instances can be created.
 
 ![React Components](/images/react-components.png)
 
@@ -98,4 +115,262 @@ in JSX, we use className instead of class (like in HTML) because class is a rese
 
 In React versions less than 17, you need to import React at the top of the component file. In React v17 and above, you do not need it.
 
-At the end, we always export our component function, this is so we can import and use them in other files. For example, the App function component in App.js is exported, and in index.js it is imported and used.
+At the end, we always export our component function, this is so we can import and use them in other files. For example, the App function component in App.js is exported, and in index.js it is imported and used. For example:
+
+App.js:
+```js
+import './App.css';
+
+const App = () => {
+
+  const sayHello = () => {
+    alert('Hello!');
+  }
+
+  return (
+    <div className="App">
+      <h1>Hello</h1>
+      <button onClick={sayHello}>Click me</button>
+    </div>
+  );
+}
+
+export default App;
+```
+
+index.js:
+```js
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+```
+
+Browser View:
+![Section 2 Browser View Before](/images/section-2-browser-view-before.png)
+![Section 2 Browser View After](/images/section-2-browser-view-after.png)
+
+## 3. Dynamic Values
+
+ JavaScript expressions may be embedded within JSX expressions to output dynamic values and variables. The embedded JavaScript expression must be wrapped in curly braces. For example:
+
+ ```js
+let expr = <h1>{10 * 10}</h1>;
+// above will be rendered as <h1>100</h1>
+ ```
+
+In the provided example, we are embedding the JavaScript expression 10 * 10 within the h1 tag, inside curly braces { }. When this JSX expression is rendered to the DOM, the embedded JavaScript expression is evaluated and rendered as 100 as the content of the h1 tag.
+
+<br/>
+NOTE: any JS is valid within functions before the return() method is called! For example in App.js in Section 2.
+<br/>
+NOTE: JSX cannot interpret booleans and objects within { }
+<br/>
+<br/>
+
+You can also use dynamic values { } in element tags. For example:
+
+```js
+const App = () => {
+
+  const link = "http://www.google.com";
+
+  return (
+    <div>
+      <a href={link}>Google</a>
+    </div>
+  );
+}
+
+export default App;
+```
+
+## 4. Multiple Components
+
+App.js is known as the root component of the application. This means it is the first component that gets rendered to the DOM and it sits at the very top of our app. It is the component that the index.js file renders.
+
+In React, our components are structured in a manner that makes up a tree. The root component sits at the top of the tree. Any other component is nested inside of this component. If further components are made, these can be nested in those already nested in App.
+
+![React Component Tree](/images/react-components.png)
+
+In this lesson we will create the Navbar.js and Home.js component. A component is simply a function that returns a JSX template, and this function is exported at the bottom of the code.
+
+Use `rafce->` if ES7+ React Snippets extension is enabled. This will generate boilerplate code for a react arrow function component that is exported. Arrow functions are the preferred approach for declaring components.
+
+Navbar.js:
+```js
+import React from 'react'
+
+const Navbar = () => {
+  return (
+    <nav className='navbar'>
+        <h1>The Arsalaan Blog</h1>
+        <div className="links">
+            <a href="/">Home</a>
+            <a href="/create">New Blog</a>
+        </div>
+    </nav>
+  )
+}
+
+export default Navbar
+```
+
+Home.js:
+```js
+import React from 'react'
+
+const Home = () => {
+  return (
+    <div className="home">
+        <h2>Homepage</h2>
+    </div>
+  )
+}
+
+export default Home
+```
+
+We have created our 2 components, we can now add these into App.js:
+```js
+import './App.css';
+import Navbar from './Navbar';
+import Home from './Home';
+
+const App = () => {
+  return (
+    <div className="App">
+      <Navbar />
+      <div className="content">
+        <Home />
+      </div>
+    </div>
+  );
+}
+
+export default App;
+```
+
+Browser View:
+![Section 4 Browser View](/images/section-4-browser-view.png)
+
+NOTE: index.js and index.html remain the same
+
+index.js:
+```js
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+
+```
+
+index.html:
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <title>React Tutorial</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  </body>
+</html>
+```
+
+## 5. Adding Styles
+Now that we have our 3 components: the root component (App.js), the Navbar and Home. It is now time to add some CSS styling! App.js imports App.css by default. All styles declared here will not only apply to the App.js component, but also to any component that is in the browser at that time. This is because CSS takes the stylesheet, and applies it to the head of the index.html file.
+
+Having separate CSS files for separate components is done mainly organisation purposes when workng on large projects. For smaller projects, a single CSS file that contains all the styling is sufficient. Consider it as a 'global' stylesheet that applies to all components! The index.css file is then imported into the index.js file, which takes all of those styles and adds them to the head of the webpage.
+
+index.css:
+```css
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+/* base styles */
+* {
+  margin: 0;
+  font-family: "Quicksand";
+  color: #333;
+}
+.navbar {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  max-width: 600px;
+  margin: 0 auto;
+  border-bottom: 1px solid #f2f2f2;
+}
+.navbar h1 {
+  color: #f1356d;
+}
+.navbar .links {
+  margin-left: auto;
+}
+.navbar a {
+  margin-left: 16px;
+  text-decoration: none;
+  padding: 6px;
+}
+.navbar a:hover {
+  color: #f1356d;
+}
+.content {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+}
+```
+
+Browser View:
+![Section 5 Browser View](/images/section-5-browser-view.png)
+
+You can also add inline styling, like in HTML. In JSX, the value of style can be a dynamic value of type object. But, unlike CSS where hyphens separate words, in JSX we use camel case. This is because what is being written inside the curly braces { } is interpreted as JS, and a hyphen would be interpreted as a minus symbol. For example:
+
+Navbar.js:
+```js
+import React from 'react'
+
+const Navbar = () => {
+  return (
+    <nav className='navbar'>
+        <h1>The Arsalaan Blog</h1>
+        <div className="links">
+            <a href="/">Home</a>
+            <a href="/create" style={{
+                color: "white",
+                backgroundColor: '#f1356d',
+                borderRadius: '8px'
+            }} >New Blog</a>
+        </div>
+    </nav>
+  )
+}
+
+export default Navbar
+```
+
+NOTE: style is not kept, only shown for demonstration purposes here.
+
+## 6. Click Events
