@@ -14,6 +14,10 @@ All tutorials are from the Complete React Tutorial on the Net Ninja YouTube chan
   - [4. Multiple Components](#4-multiple-components)
   - [5. Adding Styles](#5-adding-styles)
   - [6. Click Events](#6-click-events)
+  - [7. Using State (useState hook)](#7-using-state-usestate-hook)
+  - [8. React Dev Tools](#8-react-dev-tools)
+  - [9. Outputting Lists](#9-outputting-lists)
+  - [10. Props \& Reusable Components](#10-props--reusable-components)
 
 ## 1. Creating a React App
 
@@ -103,13 +107,15 @@ Link to: [Full React Tutorial #2 - Creating a React Application](https://www.you
 
 ## 2. React Components
 
-Components contain their own template and logic for that piece of content. A React component is a reusable piece of code used to define the appearance, behavior, and state of a portion of a web app’s interface. Components are defined as functions (or as classes). Using the component as a factory, an infinite number of component instances can be created.
+A React component is a reusable piece of code used to define the appearance, behavior, and state of a portion of a web app’s interface. Components are defined as functions (or as classes). Using the component as a factory, an infinite number of component instances can be created. Components contain their own template and logic for that piece of content.
 
 ![React Components](/images/react-components.png)
 
 For example, a NavBar component will contain a template which makes up the HTML and also any JS logic, like a function that runs if a logout button is clicked! React components allows us to implement these features very easily.
 
-All components contain functions that are capitalised. For example, App.js contains the function App(). They must return JSX. Which is an extended version of JS Syntax that contains HTML-like syntax. In the background, a transpiler called babel converts all of the JSX template to HTML, and it renders it to the DOM.
+All components contain functions that are capitalised. For example, App.js contains the function App(). They must return JSX. Which is an extended version of JS Syntax that contains HTML-like syntax. A class component’s return() method can return any JSX, including a mix of HTML elements and custom React components.
+
+React requires that the first letter of components be capitalized. JSX will use this capitalization to tell the difference between an HTML tag and a component instance. If the first letter of a name is capitalized, then JSX knows it’s a component instance; if not, then it’s an HTML element. In the background, a transpiler called babel converts all of the JSX template to HTML, and it renders it to the DOM.
 
 in JSX, we use className instead of class (like in HTML) because class is a reserved keyword in JS! Babel converts this into class when the code is transpiled from JSX to HTML in the DOM.
 
@@ -153,6 +159,7 @@ root.render(
 ```
 
 Browser View:
+
 ![Section 2 Browser View Before](/images/section-2-browser-view-before.png)
 ![Section 2 Browser View After](/images/section-2-browser-view-after.png)
 
@@ -195,11 +202,11 @@ export default App;
 
 App.js is known as the root component of the application. This means it is the first component that gets rendered to the DOM and it sits at the very top of our app. It is the component that the index.js file renders.
 
-In React, our components are structured in a manner that makes up a tree. The root component sits at the top of the tree. Any other component is nested inside of this component. If further components are made, these can be nested in those already nested in App.
+In React, our components are structured in a manner that makes up a tree. The root component sits at the top of the tree. Any other component is nested inside of this component. If further components are made, these can be nested in those already nested components, and so on.
 
-![React Component Tree](/images/react-components.png)
+![React Component Tree](/images/react-component-tree.png)
 
-In this lesson we will create the Navbar.js and Home.js component. A component is simply a function that returns a JSX template, and this function is exported at the bottom of the code.
+In this lesson we will create the Navbar.js and Home.js component. A component is simply a function that returns a JSX template, and this function is exported at the bottom of the code. It is common to keep each React component in its own file, export it, and import it wherever else it is needed. This file organization helps make components reusable. You don’t need to do this, but it’s a useful convention.
 
 Use `rafce->` if ES7+ React Snippets extension is enabled. This will generate boilerplate code for a react arrow function component that is exported. Arrow functions are the preferred approach for declaring components.
 
@@ -258,6 +265,7 @@ export default App;
 ```
 
 Browser View:
+
 ![Section 4 Browser View](/images/section-4-browser-view.png)
 
 NOTE: index.js and index.html remain the same
@@ -301,7 +309,7 @@ index.html:
 ## 5. Adding Styles
 Now that we have our 3 components: the root component (App.js), the Navbar and Home. It is now time to add some CSS styling! App.js imports App.css by default. All styles declared here will not only apply to the App.js component, but also to any component that is in the browser at that time. This is because CSS takes the stylesheet, and applies it to the head of the index.html file.
 
-Having separate CSS files for separate components is done mainly organisation purposes when workng on large projects. For smaller projects, a single CSS file that contains all the styling is sufficient. Consider it as a 'global' stylesheet that applies to all components! The index.css file is then imported into the index.js file, which takes all of those styles and adds them to the head of the webpage.
+Having separate CSS files for separate components is done mainly for organisation purposes when workng on large projects. For smaller projects, a single CSS file that contains all the styling is sufficient. Consider it as a 'global' stylesheet that applies to all components! The index.css file is then imported into the index.js file, which takes all of those styles and adds them to the head of the webpage.
 
 index.css:
 ```css
@@ -344,6 +352,7 @@ index.css:
 ```
 
 Browser View:
+
 ![Section 5 Browser View](/images/section-5-browser-view.png)
 
 You can also add inline styling, like in HTML. In JSX, the value of style can be a dynamic value of type object. But, unlike CSS where hyphens separate words, in JSX we use camel case. This is because what is being written inside the curly braces { } is interpreted as JS, and a hyphen would be interpreted as a minus symbol. For example:
@@ -374,3 +383,262 @@ export default Navbar
 NOTE: style is not kept, only shown for demonstration purposes here.
 
 ## 6. Click Events
+Our components can react to different events such as hover, click, form submission, keyboard, scroll events and more! This example will focus on click events.
+
+In the Home.js component we created a button element. When a user clicks this button, we want to execute a function. We create a function for handling this event as `handleClick`. This is a typical naming convention followed for such an event. Other events and their corresponding function names would be handleMouseOver, handleSubmit etc. In order to link the function to the button element, we need to configure the event listener. Here is where declare `onClick={handleClick}`. You specifically do not invoke the function `handleClick()` because this will execute the function automatically, without the user even clicking on the button. Hence, we only wrote a reference to the function, so when the user clicks the button, the function will then (and only then) be invoked.
+
+Home.js:
+```js
+import React from 'react'
+
+const Home = () => {
+
+    const handleClick = () => {
+        alert('Hello!');
+    }
+
+  return (
+    <div className="home">
+        <h2>Homepage</h2>
+        <button onClick={handleClick}>Click me</button>
+    </div>
+  )
+}
+
+export default Home
+```
+
+What if we want to pass in argument to the function? Such as a name. What we would do is pass in the name in parenthesis as such `onClick={handleClick('yoshi')}`, but if we do this... it is going to automatically invoke this function right away. Instead, we have to wrap this inside of an anonymous function so it only triggers upon the event!
+
+Home.js:
+```js
+import React from 'react'
+
+const Home = () => {
+
+    const handleClick = () => {
+        alert('Hello!');
+    }
+
+    const handleClickAgain = (name) => {
+        alert(`Hello ${name}!`);
+    }
+
+  return (
+    <div className="home">
+        <h2>Homepage</h2>
+        <button onClick={handleClick}>Click me</button>
+        <button onClick={() => handleClickAgain('yoshi')}>Click me again</button>
+    </div>
+  )
+}
+
+export default Home
+```
+
+Browser View:
+
+![Section 6 Browser View](/images/section-6-browser-view.png)
+![Section 6 Browser View Event 1](/images/section-6-browser-view-event-1.png)
+![Section 6 Browser View Event 2](/images/section-6-browser-view-event-2.png)
+
+One more thing to learn about is the event object/parameter that we automatically get access to inside these functions when an event occurs! In this demonstration we will convert the above example to output the event object into the console also. This event object contains many properties which we can use.
+
+Home.js:
+```js
+import React from 'react'
+
+const Home = () => {
+
+    const handleClick = (e) => {
+        console.log('Hello!', e)
+    }
+
+    const handleClickAgain = (name, e) => {
+        console.log(`Hello ` + name, e.target);
+    }
+
+  return (
+    <div className="home">
+        <h2>Homepage</h2>
+        <button onClick={handleClick}>Click me</button>
+        <button onClick={(e) => handleClickAgain('yoshi', e)}>Click me again</button>
+    </div>
+  )
+}
+
+export default Home
+```
+
+Browser/Console View:
+
+![Section 6 Console](/images/section-6-console.png)
+
+## 7. Using State (useState hook)
+When we talk about the 'state of a component' we are simply referring to the data being used by a component at that point in time. The data can be an array of values, booleans, string, objects, etc. 
+
+What if we had variables or data that we wanted to change over time in reaction to some event (like a user clicking a button). In this example we will demonstrate how we can change the name shown in the browser by clicking a button by using the useState hook.
+
+A hook in React is a special type of function that does a certain job. All hooks in React start with the term 'use'. The useState hook gives us a way to make a Reactive value, and also provides us with a way to change that value whenever we want.
+
+useState() Hook Template:
+```js
+const [currentState, stateSetter] = useState(initialState);
+```
+
+The useState() Hook lets you add React state to function components. It should be called at the top level of a React function definition to manage its state. initialState is an optional value that can be used to set the value of currentState for the first render. The stateSetter function is used to update the value of currentState and rerender our component with the next state value.
+
+NOTE: Must import useState function from react library.
+
+Home.js:
+```js
+import React from 'react'
+import { useState } from 'react';
+
+const Home = () => {
+
+    const [name, setName] = useState('mario');
+
+    const handleClick = () => {
+        setName('luigi')
+    }
+
+    
+  return (
+    <div className="home">
+        <h2>Homepage</h2>
+        <p>{ name }</p>
+        <button onClick={handleClick}>Click me</button>
+    </div>
+  )
+}
+
+export default Home
+```
+
+Browser View (before and after clicking button):
+
+![Section 7 useState before 1](/images/section-7-useState-before-1.png)
+![Section 7 useState after 1](/images/section-7-useState-after-1.png)
+
+
+There are two main rules to keep in mind when using Hooks:
+
+- Only call Hooks from React function components.
+- Only call Hooks at the top level, to be sure that Hooks are called in the same order each time a component renders.
+Common mistakes to avoid are calling Hooks inside of loops, conditions, or nested functions.
+
+Why do we use Hooks?
+Hooks are functions that let us “hook into” state and lifecycle functionality in function components.
+
+Hooks allow us to:
+
+- reuse stateful logic between components
+- simplify and organize our code to separate concerns, rather allowing unrelated data to get tangled up together
+- avoid confusion around the behavior of the this keyword
+- avoid class constructors, binding methods, and related advanced JavaScript techniques
+
+NOTE: In React, many develepoers use a function as a component instead of a class. Function components receive props as a parameter.
+
+In the example code, we show two equivalent components: one as a class and one as a function.
+
+Example:
+```js
+// The two components below are equivalent.
+class GreeterAsClass extends React.Component {
+  render() {
+    return <h1>Hello, {this.props.name}!</h1>;
+  }
+}
+
+function GreeterAsFunction(props) {
+  return <h1>Hello, {props.name}!</h1>;
+}
+```
+
+Another example:
+Home.js:
+```js
+import React from 'react'
+import { useState } from 'react';
+
+const Home = () => {
+
+    const [name, setName] = useState('mario');
+    const [age, setAge] = useState(25);
+
+    const handleClick = () => {
+        setName('luigi')
+        setAge(30);
+    }
+
+    
+  return (
+    <div className="home">
+        <h2>Homepage</h2>
+        <p>{ name } is {age} years old!</p>
+        <button onClick={handleClick}>Click me</button>
+    </div>
+  )
+}
+
+export default Home
+```
+
+Browser View (before and after clicking button):
+
+![Section 7 useState before 2](/images/section-7-useState-before-2.png)
+![Section 7 useState after 2](/images/section-7-useState-after-2.png)
+
+## 8. React Dev Tools
+React Dev Tools is an extension used in Chrome which adds more features to our Chrome Dev Tools. It allows you to inspect a React tree, including the component hierarchy, props, state, and more. All you have to do to use it, is open the Chrome Dev Tools menu and switch to either the 'Components' or 'Profiler' tab.
+
+## 9. Outputting Lists
+Because we are developing a Blog, we need a list of blogs stored in an array (of objects). We will be using the useState hook to create the data since it might change in some point in time (e.g. we might delete a blog, and want React to update the DOM accordingly).
+
+The list requires each item to have a unique id. This will be used by React to output the list of data.
+
+We need a template for each item. We could hard code this by adding 3 divs and their respective elements (such as h1's and such). BUT, this is not ideal. It is time consuming, repeating code AND the data may change at some point... if we add more blogs in the future then we will have to manually add these in the source code. Or, if we delete some blogs, it will not update automatically and would require the same manual changes to remove the blogs. 
+
+Instead, we want to cycle through the array using JS, and output a template for each item! This way, it will not matter if there are 3 blogs.. or 100! Here we will use the map() method! The array method map() comes up often in React. It’s good to get in the habit of using it alongside JSX. If you want to create a list of JSX elements from a given array, then map() over each element in the array, returning a list item for each one.
+
+When we output a list using the map method, each root element in the template that we return, MUST have a key property. The key attribute is used to uniquely identify individual elements. It is declared like any other attribute. If data changes at any point (remove/add) then React can keep track of these items! Keys can help performance because they allow React to keep track of whether individual list items should be rendered, or if the order of individual items is important.
+
+In React, JSX attribute values can be set through data stored in regular JavaScript objects. We see this in the example block of code. In our code example we first see our JavaScript object blogs and the values stored with these items. We then see how these stored values are used to set the div attribute 'key' in our JSX expression for the Home component.
+
+
+Home.js:
+```js
+import React from 'react'
+import { useState } from 'react';
+
+const Home = () => {
+
+   const [blogs, setBlogs] = useState([
+    { title: 'My new website', body: 'lorem ipsum...', author: 'mario', id: 1},
+    { title: 'Welcome party!', body: 'lorem ipsum...', author: 'yoshi', id: 2},
+    { title: 'Web dev top tips', body: 'lorem ipsum...', author: 'mario', id: 3}
+   ]);
+    
+  return (
+    <div className="home">
+        {blogs.map((blog) => (
+            <div className="blog-preview" key={blog.id}>
+                <h2>{ blog.title }</h2>
+                <p>Written by {blog.author}</p>
+            </div>
+        ))}
+    </div>
+  )
+}
+
+export default Home
+```
+
+Browser View:
+
+![Section 9 List](/images/section-9-list.png)
+
+Note: Added styles to the items.
+
+## 10. Props & Reusable Components
